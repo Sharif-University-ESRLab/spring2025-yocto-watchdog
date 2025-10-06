@@ -38,7 +38,7 @@ To replicate this project, you will need the following hardware:
 
 ## 🏗️ System Architecture
 
-The physical setup consists of three devices sharing a common I2C communication bus[cite: 157]. This is achieved by connecting the SDA (Serial Data), SCL (Serial Clock), and GND (Ground) pins of all three components together.
+The physical setup consists of three devices sharing a common I2C communication bus. This is achieved by connecting the SDA (Serial Data), SCL (Serial Clock), and GND (Ground) pins of all three components together.
 
 The roles within this architecture are clearly defined:
 
@@ -93,8 +93,8 @@ BBLAYERS += " ${TOPDIR}/../meta-raspberrypi "
 Edit the `build/conf/local.conf` file to set the machine type and add necessary features like SSH and I2C tools.
 
 ```bash
-# Set the machine to Raspberry Pi 4 (or your model)
-MACHINE ?= "raspberrypi4-64"
+# Set the machine to Raspberry Pi 3 (or your model)
+MACHINE ?= "raspberrypi3-64"
 
 # Enable UART and SSH for remote access
 ENABLE_UART = "1"
