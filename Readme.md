@@ -146,5 +146,5 @@ The final detailed report for this project, including design choices, implementa
 
 ## 🧑‍💻 Developers
 
-* Ali Shahheidar
-* Alireza Rezaeimoghadam
+* [Ali Shahheidar](https://github.com/alishahheidar98/)
+* [Alireza Rezaeimoghadam](https://github.com/Alireza1909/)
