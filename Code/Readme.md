@@ -9,12 +9,12 @@ In many embedded systems, components like sensors and microcontrollers communica
 This project implements a **guardian (or watchdog) system** that passively monitors all data exchanged on an I2C bus. It identifies anomalies that could indicate a fault or attack, ensuring the integrity of the communication channel.
 
 
-[cite_start]The system architecture consists of three main components[cite: 165, 166]:
-1.  [cite_start]**Main Embedded System**: A Raspberry Pi responsible for communicating with a sensor over the I2C bus[cite: 165].
-2.  [cite_start]**I2C Sensor**: An I2C-based sensor that communicates with the main system[cite: 161, 165].
-3.  **Watchdog System**: A second Raspberry Pi that connects to the same I2C bus in a monitoring (or "sniffer") role. [cite_start]It analyzes the traffic to detect and report anomalies[cite: 166].
+The system architecture consists of three main components:
+1.  **Main Embedded System**: A Raspberry Pi responsible for communicating with a sensor over the I2C bus.
+2.  **I2C Sensor**: An I2C-based sensor that communicates with the main system.
+3.  **Watchdog System**: A second Raspberry Pi that connects to the same I2C bus in a monitoring (or "sniffer") role. It analyzes the traffic to detect and report anomalies.
 
-[cite_start]Anomalies detected can include[cite: 166]:
+Anomalies detected can include:
 * Unauthorized data exchange
 * Inconsistent data or incorrect addressing
 * Delayed or missing responses from devices
@@ -22,13 +22,13 @@ This project implements a **guardian (or watchdog) system** that passively monit
 ## Hardware & Software Requirements
 
 ### Hardware
-* [cite_start]**Raspberry Pi**: 2 units [cite: 161]
-* [cite_start]**I2C-based Sensor**: 1 unit (e.g., a temperature sensor, accelerometer, etc.) [cite: 161]
+* **Raspberry Pi**: 2 units 
+* **I2C-based Sensor**: 1 unit (e.g., a temperature sensor, accelerometer, etc.)
 * MicroSD cards for the Raspberry Pis
 * Necessary wiring to connect the devices to the same I2C bus (SDA, SCL, GND)
 
 ### Software
-* [cite_start]**Yocto Project**: Used to build the custom Linux OS for both Raspberry Pi boards[cite: 163, 167].
+* **Yocto Project**: Used to build the custom Linux OS for both Raspberry Pi boards.
 
 ## Code Structure
 
@@ -45,7 +45,7 @@ The code in this repository is organized into the following directories:
 2.  Connect all three devices to a common I2C bus. Ensure that the SDA, SCL, and GND lines are properly shared among them.
 
 ### 2. Operating System
-[cite_start]Build and flash a custom Linux image generated with the **Yocto Project** onto the microSD cards for both Raspberry Pi units[cite: 175].
+Build and flash a custom Linux image generated with the **Yocto Project** onto the microSD cards for both Raspberry Pi units.
 
 ### 3. Build and Run
 1.  Clone this repository onto both Raspberry Pi systems.
@@ -56,11 +56,11 @@ The code in this repository is organized into the following directories:
 2.  **On the Main System Raspberry Pi**:
     * Navigate to the `Main_System` directory.
     * Compile the code (update the command based on your build system, e.g., `make`).
-    * [cite_start]Run the compiled executable to start communication with the sensor[cite: 175].
+    * Run the compiled executable to start communication with the sensor.
 
 3.  **On the Watchdog Raspberry Pi**:
     * Navigate to the `I2C_Sniffer` directory.
     * Compile the code.
-    * [cite_start]Run the sniffer executable to begin monitoring the I2C bus for anomalies[cite: 176].
+    * Run the sniffer executable to begin monitoring the I2C bus for anomalies.
 
 Once both systems are running, the watchdog will print any detected errors or anomalies to the console. You can use the code in the `Test_Code` directory to inject faults and verify the watchdog's detection capabilities.
