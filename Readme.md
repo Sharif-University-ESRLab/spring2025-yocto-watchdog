@@ -146,5 +146,5 @@ The final detailed report for this project, including design choices, implementa
 
 ## 🧑‍💻 Developers
 
-* [Your Name]
-* [Your Teammate's Name]
+* Ali Shahheidar
+* Alireza Rezaeimoghadam
