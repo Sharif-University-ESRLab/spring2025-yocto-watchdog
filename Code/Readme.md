@@ -19,17 +19,6 @@ Anomalies detected can include:
 * Inconsistent data or incorrect addressing
 * Delayed or missing responses from devices
 
-## Hardware & Software Requirements
-
-### Hardware
-* **Raspberry Pi**: 2 units 
-* **I2C-based Sensor**: 1 unit (e.g., a temperature sensor, accelerometer, etc.)
-* MicroSD cards for the Raspberry Pis
-* Necessary wiring to connect the devices to the same I2C bus (SDA, SCL, GND)
-
-### Software
-* **Yocto Project**: Used to build the custom Linux OS for both Raspberry Pi boards.
-
 ## Code Structure
 
 The code in this repository is organized into the following directories:
