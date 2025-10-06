@@ -60,6 +60,6 @@ Some links related to your project come here.
 
 ## Authors
 Authors and their github link come here.
-- [@Author1](https://github.com/Alireza1909)
-- [@Author2](https://github.com/alishahheidar98)
+- [@Alireza1909](https://github.com/Alireza1909)
+- [@Alishahheidar98](https://github.com/alishahheidar98)
 
