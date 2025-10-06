@@ -1,65 +1,150 @@
+# Hardware Lab Project - Spring 2025
+### Error Detection in Communication Buses
 
-![Logo](https://via.placeholder.com/600x150?text=Your+Logo+Here+600x150)
+[![Sharif University of Technology Logo](https://img.shields.io/badge/Sharif_University_of_Technology-blue)](https://www.sharif.edu/)
+[![ESRLab Logo](https://img.shields.io/badge/Embedded_System_Research_Lab-red)](https://esrlab.ce.sharif.edu/)
 
+---
 
-# Project Title
+## 📖 Table of Contents
+* [Project Description](#-project-description)
+* [Hardware Requirements](#-hardware-requirements)
+* [System Architecture](#-system-architecture)
+* [Preliminary Setups](#-preliminary-setups)
+* [How to Run](#-how-to-run)
+* [Results](#-results)
+* [Project Report](#-project-report)
+* [Developers](#-developers)
 
-A brief description of what this project does and who it's for comes here.
+---
 
+## 📝 Project Description
 
-## Tools
-In this section, you should mention the hardware or simulators utilized in your project.
-- Qemu
-- Gem5
-- ESP32
-- Raspberry Pi 3B
-- Temperature Sensor
+[cite_start]This project aims to enhance the reliability of embedded systems by detecting errors on communication buses[cite: 158]. [cite_start]We implement a **watchdog system** using a dedicated Raspberry Pi to monitor an **I2C bus** in real-time[cite: 166]. [cite_start]This watchdog passively "sniffs" the data being exchanged between a primary embedded system (another Raspberry Pi) and an I2C sensor[cite: 165, 166].
 
+[cite_start]The primary goal is to identify and report various anomalies, which could be caused by software bugs, environmental interference, or potential security attacks[cite: 159]. [cite_start]The watchdog is designed to detect issues such as unauthorized data transfers, incorrect device addressing, inconsistent data, and response delays[cite: 166]. [cite_start]The entire system runs on a custom Linux distribution built using the **Yocto Project**[cite: 167].
 
-## Implementation Details
+---
 
-In this section, you will explain how you completed your project. It is recommended to use pictures to demonstrate your system model and implementation.
+## 💻 Hardware Requirements
 
+To replicate this project, you will need the following hardware:
+* [cite_start]**Raspberry Pi Boards**: 2 units [cite: 161]
+* [cite_start]**I2C-based Sensor**: 1 unit [cite: 161]
+* MicroSD Cards (one for each Raspberry Pi)
+* Power supplies and necessary wiring for the I2C bus (SDA, SCL, GND)
 
-Feel free to use sub-topics for your projects. If your project consists of multiple parts (e.g. server, client, and embedded device), create a separate topic for each one.
+---
 
-## How to Run
+## 🏗️ System Architecture
 
-In this part, you should provide instructions on how to run your project. Also if your project requires any prerequisites, mention them. 
+[cite_start]The physical setup consists of three devices sharing a common I2C communication bus[cite: 157]. This is achieved by connecting the SDA (Serial Data), SCL (Serial Clock), and GND (Ground) pins of all three components together.
 
-#### Examples:
-#### Build Project
-Your text comes here
+The roles within this architecture are clearly defined:
+
+1.  **Main Embedded System (Raspberry Pi)**: This device acts as the I2C bus master. [cite_start]It is responsible for initiating communication with and reading data from the sensor[cite: 165].
+2.  **Watchdog System (Raspberry Pi)**: This is the core of our project. [cite_start]It is connected to the same I2C bus but acts as a passive listener or "sniffer"[cite: 166]. It does not initiate transactions or interfere with the primary communication. [cite_start]Its sole purpose is to capture and analyze all traffic to identify and report anomalies[cite: 166].
+3.  **Sensor (I2C Device)**: This device acts as the I2C bus slave. [cite_start]It responds to requests from the Main Embedded System[cite: 165].
+
+This separation of concerns allows the primary system to perform its tasks without the overhead of self-monitoring, while the dedicated watchdog ensures high-integrity, non-intrusive supervision of the communication channel.
+
+---
+
+## 🛠️ Preliminary Setups
+
+[cite_start]Both Raspberry Pi boards must be running a custom Linux image built with Yocto[cite: 167]. Follow these steps to create the image.
+
+### 1. Set Up the Build Environment
+First, clone the Yocto Project's core, Poky.
+
 ```bash
-  build --platform=OvmfPkg/OvmfPkgX64.dsc --arch=X64 --buildtarget=RELEASE --tagname=GCC5
+git clone git://git.yoctoproject.org/poky
+cd poky
 ```
 
-#### Run server
-Your text comes here
+### 2. Configure the Build
+Source the environment setup script to create the build directory.
+
 ```bash
-  pyhton server.py -p 8080
+source oe-init-build-env
+```
+This will place you inside the `build/conf` directory.
+
+### 3. Add Necessary Layers
+Clone the required meta-layers for Raspberry Pi support.
+
+```bash
+git clone git://git.openembedded.org/meta-openembedded
+git clone git://git.yoctoproject.org/meta-raspberrypi
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `-p` | `int` | **Required**. Server port |
+Next, add these layers to your configuration by editing `bblayers.conf`:
 
+```bash
+# Add these lines to your build/conf/bblayers.conf file
+BBLAYERS += " ${TOPDIR}/../meta-openembedded/meta-oe "
+BBLAYERS += " ${TOPDIR}/../meta-openembedded/meta-python "
+BBLAYERS += " ${TOPDIR}/../meta-openembedded/meta-multimedia "
+BBLAYERS += " ${TOPDIR}/../meta-openembedded/meta-networking "
+BBLAYERS += " ${TOPDIR}/../meta-raspberrypi "
+```
 
+### 4. Configure `local.conf`
+Edit the `build/conf/local.conf` file to set the machine type and add necessary features like SSH and I2C tools.
 
-## Results
-In this section, you should present your results and provide an explanation for them.
+```bash
+# Set the machine to Raspberry Pi 4 (or your model)
+MACHINE ?= "raspberrypi4-64"
 
-Using image is required.
+# Enable UART and SSH for remote access
+ENABLE_UART = "1"
+ENABLE_SSH_SERVER = "1"
 
-## Related Links
-Some links related to your project come here.
- - [EDK II](https://github.com/tianocore/edk2)
- - [ESP32 Pinout](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/)
- - [Django Doc](https://docs.djangoproject.com/en/5.0/)
+# Add i2c-tools and other packages
+EXTRA_IMAGE_FEATURES:append = " tools-debug"
+IMAGE_INSTALL:append = " i2c-tools"
+```
 
+### 5. Build the Image
+Start the build process. This can take a significant amount of time.
 
-## Authors
-Authors and their github link come here.
-- [@Alireza1909](https://github.com/Alireza1909)
-- [@Alishahheidar98](https://github.com/alishahheidar98)
+```bash
+bitbake core-image-base
+```
 
+### 6. Flash the Image
+Once the build is complete, the image will be located at `build/tmp/deploy/images/raspberrypi...`. Flash the `.wic.gz` image file to your microSD cards using a tool like Raspberry Pi Imager or `dd`.
+
+---
+
+## 🚀 How to Run
+
+1.  **Connect Hardware**: Wire the two Raspberry Pis and the I2C sensor to the same I2C bus by connecting their respective SDA, SCL, and GND pins.
+2.  **Clone Repository**: On both flashed Raspberry Pis, clone this project's repository.
+    ```bash
+    git clone [https://github.com/Sharif-University-ESRLab/spring2025-yocto-watchdog.git](https://github.com/Sharif-University-ESRLab/spring2025-yocto-watchdog.git)
+    cd spring2025-yocto-watchdog
+    ```
+3.  **Run the Main System**: On the primary Raspberry Pi, navigate to the `Code/Main_System` directory, compile the code, and run the executable. [cite_start]This will start the communication with the sensor[cite: 176].
+4.  **Run the Watchdog**: On the watchdog Raspberry Pi, navigate to the `Code/I2C_Sniffer` directory, compile the code, and run the executable. [cite_start]The watchdog will now begin monitoring the bus and reporting its findings to the console[cite: 176].
+
+---
+
+## 📊 Results
+
+The expected outcome is for the **Watchdog System** to successfully monitor the I2C bus. When an error or anomaly is detected (either naturally or by using the test scripts in `Code/Test_Code`), the watchdog will print a descriptive message to its console, detailing the nature of the fault.
+
+---
+
+## 📜 Project Report
+
+The final detailed report for this project, including design choices, implementation details, and test results, can be found here:
+
+**[Project Report](./Report.pdf)**
+
+---
+
+## 🧑‍💻 Developers
+
+* [Your Name]
+* [Your Teammate's Name]
