@@ -38,7 +38,7 @@ To replicate this project, you will need the following hardware:
 
 ## 🏗️ System Architecture
 
-[cite_start]The physical setup consists of three devices sharing a common I2C communication bus[cite: 157]. This is achieved by connecting the SDA (Serial Data), SCL (Serial Clock), and GND (Ground) pins of all three components together.
+The physical setup consists of three devices sharing a common I2C communication bus[cite: 157]. This is achieved by connecting the SDA (Serial Data), SCL (Serial Clock), and GND (Ground) pins of all three components together.
 
 The roles within this architecture are clearly defined:
 
