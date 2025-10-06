@@ -2,7 +2,7 @@
 ### Error Detection in Communication Buses
 
 [![Sharif University of Technology Logo](https://img.shields.io/badge/Sharif_University_of_Technology-blue)](https://www.sharif.edu/)
-[![ESRLab Logo](https://img.shields.io/badge/Embedded_System_Research_Lab-red)](https://esrlab.ce.sharif.edu/)
+[![ESRLab Logo](https://img.shields.io/badge/Internet_Of_Things_Lab-red)](https://esrlab.ce.sharif.edu/)
 
 ---
 
