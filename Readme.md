@@ -20,17 +20,17 @@
 
 ## 📝 Project Description
 
-[cite_start]This project aims to enhance the reliability of embedded systems by detecting errors on communication buses[cite: 158]. [cite_start]We implement a **watchdog system** using a dedicated Raspberry Pi to monitor an **I2C bus** in real-time[cite: 166]. [cite_start]This watchdog passively "sniffs" the data being exchanged between a primary embedded system (another Raspberry Pi) and an I2C sensor[cite: 165, 166].
+This project aims to enhance the reliability of embedded systems by detecting errors on communication buses. We implement a **watchdog system** using a dedicated Raspberry Pi to monitor an **I2C bus** in real-time. This watchdog passively "sniffs" the data being exchanged between a primary embedded system (another Raspberry Pi) and an I2C sensor.
 
-[cite_start]The primary goal is to identify and report various anomalies, which could be caused by software bugs, environmental interference, or potential security attacks[cite: 159]. [cite_start]The watchdog is designed to detect issues such as unauthorized data transfers, incorrect device addressing, inconsistent data, and response delays[cite: 166]. [cite_start]The entire system runs on a custom Linux distribution built using the **Yocto Project**[cite: 167].
+The primary goal is to identify and report various anomalies, which could be caused by software bugs, environmental interference, or potential security attacks. The watchdog is designed to detect issues such as unauthorized data transfers, incorrect device addressing, inconsistent data, and response delays. The entire system runs on a custom Linux distribution built using the **Yocto Project**.
 
 ---
 
 ## 💻 Hardware Requirements
 
 To replicate this project, you will need the following hardware:
-* [cite_start]**Raspberry Pi Boards**: 2 units [cite: 161]
-* [cite_start]**I2C-based Sensor**: 1 unit [cite: 161]
+* **Raspberry Pi Boards**: 2 units
+* **I2C-based Sensor**: 1 unit
 * MicroSD Cards (one for each Raspberry Pi)
 * Power supplies and necessary wiring for the I2C bus (SDA, SCL, GND)
 
@@ -42,9 +42,9 @@ To replicate this project, you will need the following hardware:
 
 The roles within this architecture are clearly defined:
 
-1.  **Main Embedded System (Raspberry Pi)**: This device acts as the I2C bus master. [cite_start]It is responsible for initiating communication with and reading data from the sensor[cite: 165].
-2.  **Watchdog System (Raspberry Pi)**: This is the core of our project. [cite_start]It is connected to the same I2C bus but acts as a passive listener or "sniffer"[cite: 166]. It does not initiate transactions or interfere with the primary communication. [cite_start]Its sole purpose is to capture and analyze all traffic to identify and report anomalies[cite: 166].
-3.  **Sensor (I2C Device)**: This device acts as the I2C bus slave. [cite_start]It responds to requests from the Main Embedded System[cite: 165].
+1.  **Main Embedded System (Raspberry Pi)**: This device acts as the I2C bus master. It is responsible for initiating communication with and reading data from the sensor.
+2.  **Watchdog System (Raspberry Pi)**: This is the core of our project. It is connected to the same I2C bus but acts as a passive listener or "sniffer". It does not initiate transactions or interfere with the primary communication. Its sole purpose is to capture and analyze all traffic to identify and report anomalies.
+3.  **Sensor (I2C Device)**: This device acts as the I2C bus slave. It responds to requests from the Main Embedded System.
 
 This separation of concerns allows the primary system to perform its tasks without the overhead of self-monitoring, while the dedicated watchdog ensures high-integrity, non-intrusive supervision of the communication channel.
 
@@ -52,7 +52,7 @@ This separation of concerns allows the primary system to perform its tasks witho
 
 ## 🛠️ Preliminary Setups
 
-[cite_start]Both Raspberry Pi boards must be running a custom Linux image built with Yocto[cite: 167]. Follow these steps to create the image.
+Both Raspberry Pi boards must be running a custom Linux image built with Yocto. Follow these steps to create the image.
 
 ### 1. Set Up the Build Environment
 First, clone the Yocto Project's core, Poky.
@@ -125,8 +125,8 @@ Once the build is complete, the image will be located at `build/tmp/deploy/image
     git clone [https://github.com/Sharif-University-ESRLab/spring2025-yocto-watchdog.git](https://github.com/Sharif-University-ESRLab/spring2025-yocto-watchdog.git)
     cd spring2025-yocto-watchdog
     ```
-3.  **Run the Main System**: On the primary Raspberry Pi, navigate to the `Code/Main_System` directory, compile the code, and run the executable. [cite_start]This will start the communication with the sensor[cite: 176].
-4.  **Run the Watchdog**: On the watchdog Raspberry Pi, navigate to the `Code/I2C_Sniffer` directory, compile the code, and run the executable. [cite_start]The watchdog will now begin monitoring the bus and reporting its findings to the console[cite: 176].
+3.  **Run the Main System**: On the primary Raspberry Pi, navigate to the `Code/Main_System` directory, compile the code, and run the executable. This will start the communication with the sensor.
+4.  **Run the Watchdog**: On the watchdog Raspberry Pi, navigate to the `Code/I2C_Sniffer` directory, compile the code, and run the executable. The watchdog will now begin monitoring the bus and reporting its findings to the console.
 
 ---
 
