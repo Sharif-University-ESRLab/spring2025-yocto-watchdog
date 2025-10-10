@@ -140,7 +140,7 @@ The expected outcome is for the **Watchdog System** to successfully monitor the 
 
 The final detailed report for this project, including design choices, implementation details, and test results, can be found here:
 
-**[Project Report](Document/proj_full_rep.pdf?raw=1)**
+**[Project Report](Document/proj_full_rep.pdf)**
 
 ---
 
