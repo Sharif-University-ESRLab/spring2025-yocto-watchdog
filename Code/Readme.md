@@ -23,9 +23,9 @@ Anomalies detected can include:
 
 The code in this repository is organized into the following directories:
 
-* **/Main_System**: Contains the source code for the primary Raspberry Pi. This code is responsible for initiating communication with the I2C sensor.
-* **/I2C_Sniffer**: Contains the source code for the watchdog Raspberry Pi. This application actively monitors the I2C bus, parses the traffic, and implements the logic for anomaly detection.
-* **/Test_Code**: Includes supplementary test scripts and code used for debugging or simulating specific error conditions on the bus.
+* **Main_System**: Contains the source code for the primary Raspberry Pi. This code is responsible for initiating communication with the I2C sensor.
+* **I2C_Sniffer**: Contains the source code for the watchdog Raspberry Pi. This application actively monitors the I2C bus, parses the traffic, and implements the logic for anomaly detection.
+* **Test_Code**: Includes supplementary test scripts and code used for debugging or simulating specific error conditions on the bus.
 
 ## Getting Started
 
