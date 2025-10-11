@@ -6,7 +6,7 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 * [Project Description](#-project-description)
 * [Hardware Requirements](#-hardware-requirements)
 * [System Architecture](#-system-architecture)
@@ -18,7 +18,7 @@
 
 ---
 
-## 📝 Project Description
+## Project Description
 
 This project aims to enhance the reliability of embedded systems by detecting errors on communication buses. We implement a **watchdog system** using a dedicated Raspberry Pi to monitor an **I2C bus** in real-time. This watchdog passively "sniffs" the data being exchanged between a primary embedded system (another Raspberry Pi) and an I2C sensor.
 
@@ -26,7 +26,7 @@ The primary goal is to identify and report various anomalies, which could be cau
 
 ---
 
-## 💻 Hardware Requirements
+## Hardware Requirements
 
 To replicate this project, you will need the following hardware:
 * **Raspberry Pi Boards**: 2 units
@@ -36,7 +36,7 @@ To replicate this project, you will need the following hardware:
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 The physical setup consists of three devices sharing a common I2C communication bus. This is achieved by connecting the SDA (Serial Data), SCL (Serial Clock), and GND (Ground) pins of all three components together.
 
@@ -50,7 +50,7 @@ This separation of concerns allows the primary system to perform its tasks witho
 
 ---
 
-## 🛠️ Preliminary Setups
+## Preliminary Setups
 
 Both Raspberry Pi boards must be running a custom Linux image built with Yocto. Follow these steps to create the image.
 
@@ -117,7 +117,7 @@ Once the build is complete, the image will be located at `build/tmp/deploy/image
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 1.  **Connect Hardware**: Wire the two Raspberry Pis and the I2C sensor to the same I2C bus by connecting their respective SDA, SCL, and GND pins.
 2.  **Clone Repository**: On both flashed Raspberry Pis, clone this project's repository.
@@ -130,13 +130,13 @@ Once the build is complete, the image will be located at `build/tmp/deploy/image
 
 ---
 
-## 📊 Results
+## Results
 
 The expected outcome is for the **Watchdog System** to successfully monitor the I2C bus. When an error or anomaly is detected (either naturally or by using the test scripts in `Code/Test_Code`), the watchdog will print a descriptive message to its console, detailing the nature of the fault.
 
 ---
 
-## 📜 Project Report
+## Project Report
 
 The final detailed report for this project, including design choices, implementation details, and test results, can be found here:
 
